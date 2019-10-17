@@ -51,7 +51,7 @@ public:
 	//NEED TO FIGURE OUT HOW STRUCTURE TREE SO PLAYER POSITION VALUES ARE EASILY ACCESSED
 	bool insert(int playerID, int xPos, int yPos);
 	bool remove(int playerID);
-	bool find(Player playerID);
+	bool find(int playerID);
 	bool moveTo(Player playerID, int newxPos, int newypos);
 	void printbyID();
 	bool checkInsertion(int &xPos, int &yPos);
