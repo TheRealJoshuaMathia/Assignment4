@@ -116,6 +116,17 @@ bool Board::find(Player playerID)
 
 }
 
+/*
+Used to print the contents of the STL map 
+*/
+void Board::printbyID()
+{
+	for (map<int, Player>::const_iterator it = gameBoard.begin();
+		it != gameBoard.end(); ++it)
+	{
+		cout << "Player id: " << it->first << "X position: " << it->second.getxPos() << "Y position: " << it->second.getyPos() << endl; 
+	}
+}
 
 bool Board::moveTo(Player playerID, int newxPos, int newyPos)
 {
