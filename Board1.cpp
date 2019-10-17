@@ -79,7 +79,7 @@ Description: Removes the player from the board by finding the player assicoated 
 erase
 
 */
-bool Board::remove(Player playerID)
+bool Board::remove(int playerID)
 {
 	//Very basic porbably won't work 
 	//either need to adjust the basic class function or figure out how to make it work with x,y values
