@@ -53,7 +53,7 @@ public:
 	bool remove(Player playerID);
 	bool find(Player playerID);
 	bool moveTo(Player playerID, int newxPos, int newypos);
-
+	void printbyID();
 	bool checkInsertion(int &xPos, int &yPos);
 
 
