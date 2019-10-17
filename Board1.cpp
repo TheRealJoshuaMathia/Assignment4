@@ -30,35 +30,36 @@ make sure that insertion of this player will not be greater than M
 */
 bool Board::insert(int playerId, int xPos, int yPos)
 {
-	Player newPlayer(playerId, xPos,yPos);
-
-	//Condition check
-
+	//Check conditions of insertion
 	bool success = false;
 	bool checkCord = false;
-	int toinsert = 1;
 
+	Player newPlayer(playerId, xPos,yPos);
+
+	//Test to see if playerID exits already in gameboard 
 	if(gameBoard.find(playerId) != gameBoard.end()) // find returns an iterator to the end if no element is found
 	{
 		success = false; //player ID exists in tree already
 	}
 
-	//Check if X & Y exists
+	//Check if the given X & Y exists in game board.
 	checkCord = checkInsertion(xPos, yPos);
 
+	//If checkCord equals true insertion is violated.
 	if(checkCord == true)
 	{
 		success = false;
 	}
-	
-	if (this->N + 1 >= M)			//if number of players greater than game board size 
+
+	//Conditon 3: Checks if the insertion will exceed the board
+	if (this->N + 1 > M) //if number of players greater than game board size 
 	{
-		toinsert = 0;		//dont insert
+		success = false;	//dont insert
 	}
 
-	success = this->gameboard.insert();   //insert returns bool 
-
-	//
+	this->gameBoard.insert({playerId,newPlayer});   //insert returns bool 
+	success = true;
+	
 	if (success == true)
 	{
 		cout << "insertion successful" << endl;
@@ -66,9 +67,10 @@ bool Board::insert(int playerId, int xPos, int yPos)
 	}
 	else
 	{
-		cout << "insertion unsuccessful" << endl;
+		cout << "Insertion was unsuccessful" << endl;
 	}
 
+	return success;
 }
 
 
