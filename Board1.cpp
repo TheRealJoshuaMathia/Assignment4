@@ -112,9 +112,21 @@ need to go through the tree and find the playerID should be O(log N)
 time if implemented correctly or could use STL find function  
 
 */
-bool Board::find(Player playerID)
+bool Board::find(int playerID)
 {
+	bool success = false; 
+	if (this->gameBoard.find(playerID) == gameBoard.end())
+	{
+		cout << "Player not found in board." << endl; 
+		success = false;
+	}
+	else
+	{
+		cout << "Player found in board." << endl;
+		success = true; 
+	}
 
+	return success;
 }
 
 /*
