@@ -6,7 +6,7 @@
 #include <cstddef>
 #include <cstdlib>
 #include <set>
-
+#include <algorithm>
 
 #include "Player.h"
 
@@ -49,17 +49,20 @@ public:
 	//board copy constructor 
 	~Board();					//destructor
 	//NEED TO FIGURE OUT HOW STRUCTURE TREE SO PLAYER POSITION VALUES ARE EASILY ACCESSED
-	bool insert(Player playerID, int xPos, int yPos);
+	bool insert(int playerID, int xPos, int yPos);
 	bool remove(Player playerID);
 	bool find(Player playerID);
 	bool moveTo(Player playerID, int newxPos, int newypos);
+
+	bool checkInsertion(int &xPos, int &yPos);
 
 
 
 private:
 	//multimap<Player> gameboard;			QUESTION: What type of tree do we want to use here? Set, Map , mulit-set,map
 	//want a tree of player values 
-	set<Player> gameBoard;		//most likely need to change			//defines set tree of players for housing values 
+	map<int,Player> gameBoard;		//most likely need to change			//defines set tree of players for housing values 
 	int N; //number of players on the board
 	int M; //size of the board 
+	map <int,Player>::iterator itr;
 };

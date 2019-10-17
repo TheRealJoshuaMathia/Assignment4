@@ -19,7 +19,6 @@ using std::istream;
 using std::ostream;
 using namespace std;
 
-
 class Player
 {
 public :

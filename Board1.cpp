@@ -10,16 +10,14 @@ Date created: 10/16/19
 //Constructor 
 Board::Board(int m)
 {
-	this->M = m;			//defines board size
+	this->M = m; //defines board size
 }
-
 
 //destructor
 Board::~Board()
 {
 	cout << "Inside board destructor" << endl;
 }
-
 
 /*
 Function name: Insert
@@ -31,19 +29,29 @@ x,y position should be empty
 make sure that insertion of this player will not be greater than M
 
 */
-bool Board::insert(Player playerId, int xPos, int yPos)
+bool Board::insert(int playerId, int xPos, int yPos)
 {
-	//Condition check 
+	Player newPlayer(playerId, xPos,yPos);
+
+	//Condition check
+
 	bool success = false;
+	bool checkCord = false;
 	int toinsert = 1;
-	if (playerId == playerid already found in board) //search through tree for id 
+
+	if(gameBoard.find(playerId) != gameBoard.end())
 	{
-		toinsert = 0; //cant insert to already occupied positon 
+		success = false; //player ID exists in tree already
 	}
-	if (xpos is found on board && y pos is found on board)
+
+	//Check if X & Y exists
+	checkCord = checkInsertion(xPos, yPos);
+
+	if(checkCord == true)
 	{
-		toinsert = 0; 
+		success = false;
 	}
+	
 	if (this->N + 1 >= M)			//if number of players greater than game board size 
 	{
 		toinsert = 0;		//dont insert
@@ -129,6 +137,18 @@ left -- right-bottom or top-right -- left-bottom).
 	*/
 }
 
+bool Board::checkInsertion(int &xPos, int &yPos)
+{
+	bool found = false;
 
+	this->itr = gameBoard.begin();
 
-#endif // !BoardClass
+	for(; itr != gameBoard.end(); itr++)
+	{
+		if(itr->second.getxPos() == xPos && itr->second.getyPos() == yPos)
+		{
+			found = true;
+		}
+	}
+	return found;
+}
