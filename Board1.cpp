@@ -1,4 +1,3 @@
-#ifndef BoardClass
 /*
 Authors: Parker Guillen, Josh Mathia
 Description:Function definitions for board class
@@ -39,7 +38,7 @@ bool Board::insert(int playerId, int xPos, int yPos)
 	bool checkCord = false;
 	int toinsert = 1;
 
-	if(gameBoard.find(playerId) != gameBoard.end())
+	if(gameBoard.find(playerId) != gameBoard.end()) // find returns an iterator to the end if no element is found
 	{
 		success = false; //player ID exists in tree already
 	}
