@@ -106,6 +106,8 @@ bool Board::remove(Player playerID)
 	return removed; 
 }
 
+
+
 /*
 need to go through the tree and find the playerID should be O(log N)
 time if implemented correctly or could use STL find function  
