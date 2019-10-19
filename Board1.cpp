@@ -62,6 +62,8 @@ bool Board::insert(int playerId, int xPos, int yPos)
 	
 	if (success == true)
 	{
+		//Insert (x,y)
+		this->insertPair(xPos, yPos);
 		cout << "insertion successful" << endl;
 		this->N += 1;
 	}
@@ -73,7 +75,6 @@ bool Board::insert(int playerId, int xPos, int yPos)
 	return success;
 }
 
-
 /*
 Function Name: Remove
 Description: Removes the player from the board by finding the player assicoated with the player ID and removing it using set
@@ -84,15 +85,16 @@ bool Board::remove(int playerID)
 {
 	//Very basic porbably won't work 
 	//either need to adjust the basic class function or figure out how to make it work with x,y values
-
 	int success = 0; 
 	bool removed = false; 
-	success = gameBoard.erase(playerID);   
+	success = gameBoard.erase(playerID); 
+  
 	//need to free x,y values but might work fine as x,y are included in player classes
 	//brings forth issue of finding the used x,y values within the search tree need to find a way 
 	//to implement in either log or constant time
 	if (success == 1)
 	{
+		this->removePair();
 		removed = true;
 		cout << "Player ID successfully removed" << endl;
 		this->N -= 1; 
@@ -106,7 +108,6 @@ bool Board::remove(int playerID)
 
 	return removed; 
 }
-
 
 
 /*
@@ -146,11 +147,11 @@ void Board::printbyID()
 bool Board::moveTo(Player playerID, int newxPos, int newyPos)
 {
 	//first need to check if there is a player with those x,y values 
-	bool removesuccess = false;
-	if (different player is found at insert position)
-	{
-		removesuccess = gameboard.remove(player at old position);
-	}
+	//bool removesuccess = false;
+	// if (different player is found at insert position)
+	// {
+	// 	removesuccess = gameboard.remove(player at old position);
+	// }
 	
 	//Next want to move the player from current x,y positions to new x,y position 
 
@@ -167,14 +168,49 @@ bool Board::checkInsertion(int &xPos, int &yPos)
 {
 	bool found = false;
 
-	this->itr = gameBoard.begin();
+	pairIT = this->trackPairs.find(xPos); // Iterates starting at given x Position
 
-	for(; itr != gameBoard.end(); itr++)
+	for(; pairIT != trackPairs.end(); pairIT++)
 	{
-		if(itr->second.getxPos() == xPos && itr->second.getyPos() == yPos)
+		if((*pairIT).first == xPos && (*pairIT).second == yPos)
 		{
 			found = true;
 		}
 	}
 	return found;
+}
+
+// Function is passed the (x,y) cordinates 
+// The cordinates are made into a pair
+// And pushed to the back of the list
+// The list is sorted at insertion
+void Board::insertPair(int &xPos, int &yPos)
+{
+	this->trackPairs.insert(xPos, yPos);
+
+}
+
+bool Board::removePair(int &xPos, int &yPos)
+{
+	bool success = false;
+
+	pairIT = this->trackPairs.find(xPos); // Iterates starting at given x Position
+
+	for(; pairIT != trackPairs.end(); pairIT++)
+	{
+		if((*pairIT).first == xPos && (*pairIT).second == yPos)
+		{
+			this->trackPairs.erase(pairIT);
+			success = true;
+		}
+	}
+	return success;
+	
+}
+
+void Board::getPair()
+{
+	
+	for()
+
 }

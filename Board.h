@@ -56,6 +56,9 @@ public:
 	void printbyID();
 	bool checkInsertion(int &xPos, int &yPos);
 
+	void insertPair(int &xPos, int &yPos);
+	bool removePair(int &xPos, int &yPos);
+	void getPair();
 
 
 private:
@@ -65,4 +68,6 @@ private:
 	int N; //number of players on the board
 	int M; //size of the board 
 	map <int,Player>::iterator itr;
+	multimap <int, int> trackPairs; // Checks list of current (x,y) positions
+	multimap <int, int>::iterator pairIT;
 };
