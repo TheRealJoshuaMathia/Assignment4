@@ -202,7 +202,7 @@ void Board::getPair(int &playerID, int *xPos, int *yPos)
 	}
 }
 
-map<int,Player>::iterator Board::findReturn(int playerID)			//instead of this we could have trees for x and y positions as well to improve timing
+map<int,Player>::iterator Board::findReturn(int &playerID)			//instead of this we could have trees for x and y positions as well to improve timing
 {
 	bool found = false;
 
