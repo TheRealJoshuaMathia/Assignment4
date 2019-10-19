@@ -88,9 +88,7 @@ bool Board::remove(int playerID)
 	success = gameBoard.erase(playerID); 
   
 	int xPos, yPos;
-	//need to free x,y values but might work fine as x,y are included in player classes
-	//brings forth issue of finding the used x,y values within the search tree need to find a way 
-	//to implement in either log or constant time
+	
 	if (success == 1)
 	{
 		this->getPair(playerID,&xPos, &yPos);
@@ -220,18 +218,28 @@ map<int,Player>::iterator Board::findReturn(int playerID)			//instead of this we
 	}
 }
 
-
+// Function: moveTo()
+// 
 bool Board::moveTo(int playerID, int newxPos, int newyPos)
 {
 
 	map<int, Player>::iterator playertomove; 
 
-	playertomove = this->gameBoard.find(playerID);				//
+	playertomove = this->gameBoard.find(playerID);
 	
-	if (checkInsertion(newxPos, newyPos) == true)			//if true there is already a player at this position which needs to be removed
+	if (checkInsertion(newxPos, newyPos) == true) //if true there is already a player at this position which needs to be removed
 	{
+		for (itr = gameBoard.begin(); itr != gameBoard.end(); itr++)
+		{
+			if(gameBoard.at(playerID).getxPos() == newxPos && gameBoard.at(playerID).getyPos() == newyPos)
+			{
+				remove(playerID);
+
+			}
+		}
+		
 		//how do we access the player id from the y values 
-		//since we need to remove then player at the occipuided poition 
+		//since we need to remove then player at the occipuided position 
 		//want to return the iterator from first to access this key 
 		//find player and remove them
 
