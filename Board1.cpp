@@ -178,3 +178,83 @@ bool Board::checkInsertion(int &xPos, int &yPos)
 	}
 	return found;
 }
+
+
+map<int,Player>::iterator Board::findReturn(int playerID)			//instead of this we could have trees for x and y positions as well to improve timing
+{
+	bool found = false;
+
+	this->itr = gameBoard.begin();
+
+	map<int, Player>::iterator toreturn; 
+
+	for (; itr != gameBoard.end(); itr++)
+	{
+		if (itr->first == playerID)
+		{
+			found = true;
+			return itr;
+		}
+	}
+	//return found;
+}
+
+
+bool Board::moveTo(int playerID, int newxPos, int newyPos)
+{
+
+	map<int, Player>::iterator playertomove; 
+
+	playertomove = this->gameBoard.find(playerID);				//
+	
+	if (checkInsertion(newxPos, newyPos) == true)			//if true there is already a player at this position which needs to be removed
+	{
+		//how do we access the player id from the y values 
+		//since we need to remove then player at the occipuided poition 
+		//want to return the iterator from first to access this key 
+		//find player and remove them
+
+	}
+
+	//need to check if x is the same 
+	int xoffset = 0, yoffset = 0; 
+	bool tomove = false;
+	xoffset = abs(playertomove->second.getxPos() - newxPos);
+	yoffset = abs(playertomove->second.getyPos() - newyPos);
+	if (newxPos > this->M || newyPos > this->M)					//are we doing with zero positions or starting at 1//UPDATE
+	{
+		cout << "wanted positions are out of range" << endl;
+		tomove = false;
+	}
+	else if ((playertomove->second.getxPos() == newxPos) && (playertomove->second.getyPos() != newyPos))		//moving up or down a column
+	{
+		//x position isnt changing so this is 
+		tomove = true;
+	}
+	else if ((playertomove->second.getxPos() != newxPos) && (playertomove->second.getyPos() == newyPos))			//moving left of right a row 
+	{
+		tomove = true;
+	}
+	else if (xoffset == yoffset)										//diagonal move 
+	{
+		tomove = true;  
+	}
+	else
+	{
+		tomove = false;
+	}
+
+	
+	if (tomove == true)
+	{
+		playertomove->second.setxPos(newxPos);			//changes the players x position 
+		playertomove->second.setyPos(newyPos);			//changes the players y position 
+		cout << "Player successfully moved" << endl;
+	}
+	else
+	{
+		cout << "Player could not be removed" << endl;
+	}
+
+	return tomove;
+}
