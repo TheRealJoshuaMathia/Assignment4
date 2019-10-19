@@ -21,20 +21,20 @@ using namespace std;
 
 class Player
 {
-public :
+public:
 	/*
-	-each player must occupy a unique position on the board 
-	-makes the most sense for x,y values to be included in the player class but this brings problems with how to 
-	arrange the values in our board tree, and how to find a fast way to access the player position depending on how we 
+	-each player must occupy a unique position on the board
+	-makes the most sense for x,y values to be included in the player class but this brings problems with how to
+	arrange the values in our board tree, and how to find a fast way to access the player position depending on how we
 	insert players
 	*/
 	Player(int playerID, int xPos, int yPos);		//let user specify id at insert
 	~Player();										//player destructor 
 
 	//getters
-	int getID() const;								
+	int getID() const;
 	int getxPos() const;
-	int getyPos() const; 
+	int getyPos() const;
 
 	//setters
 	void setID(int newID);				//probably don't need since each id is assigned to a player at creation 
