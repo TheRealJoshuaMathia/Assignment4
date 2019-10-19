@@ -1,4 +1,10 @@
+/*
+Authors: Parker Guillen, Joshua Mathia
+Description:Function definitions for board class
+Date created: 10/16/19
+*/
 
+//Pre Processor Declaratives
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -23,25 +29,6 @@ using std::istream;
 using std::ostream;
 using namespace std;
 
-/*
-Information: 
-Set and map trees provide log time for insertion, deletion, and searching.
-
-SET: Ordered container that doesn't allow duplicates, iterator types can be used to access elements, 
-begin,end,empty,size can all be used
-Insert: returns an iterator 
-
-MAP: stores collection of ordered values that consist of their keys and the values at the keys,
-keys are unique but values are not, many keys can map to the same values. 
-for inserting must provide pair<Keytype, value type> 
-Find not very useful for searching 
-can use array indexing operator ValueType & operator[](const keyType & key) 
-
-NOTE: The current tree used for the game board probably isn't the right way to implement as we need to be able to 
-access elements in the tree in at least log n time
-
-*/
-
 class Board
 {
 public:
@@ -50,7 +37,6 @@ public:
 	//M is needed as a way to check if the player id will be in bounds 
 	//board copy constructor 
 	~Board();					//destructor
-	//NEED TO FIGURE OUT HOW STRUCTURE TREE SO PLAYER POSITION VALUES ARE EASILY ACCESSED
 	bool insert(int playerID, int xPos, int yPos);
 	bool remove(int playerID);
 	bool find(int playerID);

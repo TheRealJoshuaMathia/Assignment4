@@ -1,5 +1,5 @@
 /*
-Authors: Parker Guillen, Josh Mathia
+Authors: Parker Guillen, Joshua Mathia
 Description:Function definitions for board class
 Date created: 10/16/19
 */
@@ -12,7 +12,7 @@ Board::Board(int m)
 	this->M = m; //defines board size
 }
 
-//destructor
+//Destructor
 Board::~Board()
 {
 	cout << "Inside board destructor" << endl;
@@ -20,13 +20,12 @@ Board::~Board()
 
 /*
 Function name: Insert
-parameters: playerid, xPos, yPos
+parameters: playerID, xPos, yPos
 Will allow for inserting of a new player into the board(tree)
 Conditions:
 playerid must be unique
 x,y position should be empty
 make sure that insertion of this player will not be greater than M
-
 */
 bool Board::insert(int playerId, int xPos, int yPos)
 {
@@ -62,7 +61,7 @@ bool Board::insert(int playerId, int xPos, int yPos)
 	
 	if (success == true)
 	{
-		//Insert (x,y)
+		//Insert (x,y) into tracked pairs vector
 		this->insertPair(xPos, yPos);
 		cout << "insertion successful" << endl;
 		this->N += 1;
@@ -75,12 +74,6 @@ bool Board::insert(int playerId, int xPos, int yPos)
 	return success;
 }
 
-/*
-Function Name: Remove
-Description: Removes the player from the board by finding the player assicoated with the player ID and removing it using set
-erase
-
-*/
 bool Board::remove(int playerID)
 {
 	int success = 0; 
@@ -109,8 +102,13 @@ bool Board::remove(int playerID)
 
 
 /*
-need to go through the tree and find the playerID should be O(log N)
-time if implemented correctly or could use STL find function  
+Function name: find
+parameters: playerid, xPos, yPos
+Will allow for inserting of a new player into the board(tree)
+Conditions:
+playerid must be unique
+x,y position should be empty
+make sure that insertion of this player will not be greater than M
 
 */
 bool Board::find(int playerID)
