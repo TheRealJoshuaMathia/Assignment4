@@ -28,7 +28,7 @@ x,y position should be empty
 make sure that insertion of this player will not be greater than M
 
 */
-bool Board::insert(int playerId, int xPos, int yPos)
+bool Board::insert(int &playerId, int &xPos, int &yPos)
 {
 	//Check conditions of insertion
 	bool success = false;
@@ -81,20 +81,20 @@ Description: Removes the player from the board by finding the player assicoated 
 erase
 
 */
-bool Board::remove(int playerID)
+bool Board::remove(int &playerID)
 {
-	//Very basic porbably won't work 
-	//either need to adjust the basic class function or figure out how to make it work with x,y values
 	int success = 0; 
 	bool removed = false; 
 	success = gameBoard.erase(playerID); 
   
+	int xPos, yPos;
 	//need to free x,y values but might work fine as x,y are included in player classes
 	//brings forth issue of finding the used x,y values within the search tree need to find a way 
 	//to implement in either log or constant time
 	if (success == 1)
 	{
-		this->removePair();
+		this->getPair(playerID,&xPos, &yPos);
+		this->removePair(xPos, yPos);
 		removed = true;
 		cout << "Player ID successfully removed" << endl;
 		this->N -= 1; 
@@ -115,7 +115,7 @@ need to go through the tree and find the playerID should be O(log N)
 time if implemented correctly or could use STL find function  
 
 */
-bool Board::find(int playerID)
+bool Board::find(int &playerID)
 {
 	bool success = false; 
 	if (this->gameBoard.find(playerID) == gameBoard.end())
@@ -144,7 +144,7 @@ void Board::printbyID()
 	}
 }
 
-bool Board::moveTo(Player playerID, int newxPos, int newyPos)
+bool Board::moveTo(Player playerID, int &newxPos, int &newyPos)
 {
 	//first need to check if there is a player with those x,y values 
 	//bool removesuccess = false;
@@ -180,7 +180,6 @@ bool Board::checkInsertion(int &xPos, int &yPos)
 	return found;
 }
 
-<<<<<<< HEAD
 // Function is passed the (x,y) cordinates 
 // The cordinates are made into a pair
 // And pushed to the back of the list
@@ -209,13 +208,21 @@ bool Board::removePair(int &xPos, int &yPos)
 	
 }
 
-void Board::getPair()
+void Board::getPair(int &playerID, int *xPos, int *yPos)
 {
-	
-	for()
+	int *xPos;
+	int *yPos;
 
+	itr = this->gameBoard.find(playerID);
+	for(; itr != gameBoard.end(); itr++)
+	{
+		if((*itr).first == playerID)
+		{
+			*xPos = (*itr).second.getxPos();
+			*yPos = (*itr).second.getxPos();
+		}
+	}
 }
-=======
 
 map<int,Player>::iterator Board::findReturn(int playerID)			//instead of this we could have trees for x and y positions as well to improve timing
 {
@@ -295,4 +302,3 @@ bool Board::moveTo(int playerID, int newxPos, int newyPos)
 
 	return tomove;
 }
->>>>>>> b72e3f00a111a0115e3220fdaf1bdb402321d73c

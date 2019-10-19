@@ -49,17 +49,17 @@ public:
 	//board copy constructor 
 	~Board();					//destructor
 	//NEED TO FIGURE OUT HOW STRUCTURE TREE SO PLAYER POSITION VALUES ARE EASILY ACCESSED
-	bool insert(int playerID, int xPos, int yPos);
-	bool remove(int playerID);
-	bool find(int playerID);
-	bool moveTo(Player playerID, int newxPos, int newypos);
+	bool insert(int &playerID, int &xPos, int &yPos);
+	bool remove(int &playerID);
+	bool find(int &playerID);
+	bool moveTo(Player &playerID, int &newxPos, int &newypos);
 	void printbyID();
 	bool checkInsertion(int &xPos, int &yPos);
 	map<int, Player>::iterator findReturn(int playerID);
 
 	void insertPair(int &xPos, int &yPos);
 	bool removePair(int &xPos, int &yPos);
-	void getPair();
+	void getPair(int &playerID, int *xPos, int *yPos);
 
 
 private:
