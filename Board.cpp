@@ -28,7 +28,7 @@ x,y position should be empty
 make sure that insertion of this player will not be greater than M
 
 */
-bool Board::insert(int &playerId, int &xPos, int &yPos)
+bool Board::insert(int playerId, int xPos, int yPos)
 {
 	//Check conditions of insertion
 	bool success = false;
@@ -81,7 +81,7 @@ Description: Removes the player from the board by finding the player assicoated 
 erase
 
 */
-bool Board::remove(int &playerID)
+bool Board::remove(int playerID)
 {
 	int success = 0; 
 	bool removed = false; 
@@ -115,7 +115,7 @@ need to go through the tree and find the playerID should be O(log N)
 time if implemented correctly or could use STL find function  
 
 */
-bool Board::find(int &playerID)
+bool Board::find(int playerID)
 {
 	bool success = false; 
 	if (this->gameBoard.find(playerID) == gameBoard.end())
@@ -144,7 +144,7 @@ void Board::printbyID()
 	}
 }
 
-bool Board::checkInsertion(int &xPos, int &yPos)
+bool Board::checkInsertion(int xPos, int yPos)
 {
 	bool found = false;
 
@@ -164,13 +164,13 @@ bool Board::checkInsertion(int &xPos, int &yPos)
 // The cordinates are made into a pair
 // And pushed to the back of the list
 // The list is sorted at insertion
-void Board::insertPair(int &xPos, int &yPos)
+void Board::insertPair(int xPos, int yPos)
 {
-	this->trackPairs.insert(xPos, yPos);
+	this->trackPairs.insert({ xPos, yPos });
 
 }
 
-bool Board::removePair(int &xPos, int &yPos)
+bool Board::removePair(int xPos, int yPos)
 {
 	bool success = false;
 
@@ -188,7 +188,7 @@ bool Board::removePair(int &xPos, int &yPos)
 	
 }
 
-void Board::getPair(int &playerID, int *xPos, int *yPos)
+void Board::getPair(int playerID, int *xPos, int *yPos)
 {
 
 	itr = this->gameBoard.find(playerID);
@@ -202,7 +202,7 @@ void Board::getPair(int &playerID, int *xPos, int *yPos)
 	}
 }
 
-map<int,Player>::iterator Board::findReturn(int &playerID)			//instead of this we could have trees for x and y positions as well to improve timing
+map<int,Player>::iterator Board::findReturn(int playerID)			//instead of this we could have trees for x and y positions as well to improve timing
 {
 	bool found = false;
 
@@ -221,7 +221,7 @@ map<int,Player>::iterator Board::findReturn(int &playerID)			//instead of this w
 }
 
 
-bool Board::moveTo(int &playerID, int &newxPos, int &newyPos)
+bool Board::moveTo(int playerID, int newxPos, int newyPos)
 {
 
 	map<int, Player>::iterator playertomove; 
