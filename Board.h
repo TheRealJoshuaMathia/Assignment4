@@ -55,6 +55,7 @@ public:
 	bool moveTo(Player playerID, int newxPos, int newypos);
 	void printbyID();
 	bool checkInsertion(int &xPos, int &yPos);
+	map<int, Player>::iterator findReturn(int playerID);
 
 	void insertPair(int &xPos, int &yPos);
 	bool removePair(int &xPos, int &yPos);
