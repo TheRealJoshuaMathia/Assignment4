@@ -29,14 +29,15 @@ make sure that insertion of this player will not be greater than M
 */
 bool Board::insert(int playerId, int xPos, int yPos)
 {
+	
 	//Check conditions of insertion
-	bool success = false;
+	bool success = true;
 	bool checkCord = false;
 
-	Player newPlayer(playerId, xPos,yPos);
+	Player newPlayer(playerId, xPos, yPos);
 
 	//Test to see if playerID exits already in gameboard 
-	if(gameBoard.find(playerId) != gameBoard.end()) // find returns an iterator to the end if no element is found
+	if (gameBoard.find(playerId) != gameBoard.end()) // find returns an iterator to the end if no element is found
 	{
 		success = false; //player ID exists in tree already
 	}
@@ -45,7 +46,7 @@ bool Board::insert(int playerId, int xPos, int yPos)
 	checkCord = checkInsertion(xPos, yPos);
 
 	//If checkCord equals true insertion is violated.
-	if(checkCord == true)
+	if (checkCord == true)
 	{
 		success = false;
 	}
@@ -56,20 +57,27 @@ bool Board::insert(int playerId, int xPos, int yPos)
 		success = false;	//dont insert
 	}
 
-	this->gameBoard.insert({playerId,newPlayer});   //insert returns bool 
-	success = true;
-	
-	if (success == true)
+	   //insert returns bool 
+	//success = true;
+	if (xPos > this->M || yPos > this->M)
 	{
-		//Insert (x,y) into tracked pairs vector
+		cout << "Positions out of board range insertion failed" << endl;
+		success = false;
+	}
+
+	if (success != false)
+	{
+		this->gameBoard.insert({ playerId,newPlayer });   //insert returns bool 
 		this->insertPair(xPos, yPos);
-		cout << "insertion successful" << endl;
+		success = true;
+		cout<< "insertion successful" << endl;
 		this->N += 1;
 	}
 	else
 	{
-		cout << "Insertion was unsuccessful" << endl;
+		cout << "insertion unsuccessful" << endl;
 	}
+
 
 	return success;
 }
@@ -136,7 +144,7 @@ void Board::printbyID()
 	for (map<int, Player>::const_iterator it = gameBoard.begin();
 		it != gameBoard.end(); ++it)
 	{
-		cout << "Player id: " << it->first << "X position: " << it->second.getxPos() << "Y position: " << it->second.getyPos() << endl; 
+		cout << "Player id: " << it->first << "\tposition: " << "("<< it->second.getxPos() << ", " << it->second.getyPos()<< ")" << endl;  
 	}
 }
 
