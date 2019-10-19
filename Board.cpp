@@ -218,7 +218,6 @@ map<int,Player>::iterator Board::findReturn(int &playerID)			//instead of this w
 			return itr;
 		}
 	}
-	//return found;
 }
 
 
