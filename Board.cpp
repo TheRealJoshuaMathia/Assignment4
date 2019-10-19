@@ -15,7 +15,7 @@ Board::Board(int m)
 //Destructor
 Board::~Board()
 {
-	cout << "Inside board destructor" << endl;
+	//cout << "Inside board destructor" << endl;
 }
 
 /*
@@ -29,7 +29,6 @@ make sure that insertion of this player will not be greater than M
 */
 bool Board::insert(int playerId, int xPos, int yPos)
 {
-	
 	//Check conditions of insertion
 	bool success = true;
 	bool checkCord = false;
@@ -84,19 +83,19 @@ bool Board::insert(int playerId, int xPos, int yPos)
 
 bool Board::remove(int playerID)
 {
-	int success = 0; 
-	bool removed = false; 
-	success = gameBoard.erase(playerID); 
-  
+	int success = 0;
+	bool removed = false;
+	success = gameBoard.erase(playerID);
+
 	int xPos, yPos;
-	
+
 	if (success == 1)
 	{
-		this->getPair(playerID,&xPos, &yPos);
+		this->getPair(playerID, &xPos, &yPos);
 		this->removePair(xPos, yPos);
 		removed = true;
 		cout << "Player ID successfully removed" << endl;
-		this->N -= 1; 
+		this->N -= 1;
 	}
 	else
 	{
@@ -105,7 +104,7 @@ bool Board::remove(int playerID)
 
 	}
 
-	return removed; 
+	return removed;
 }
 
 
@@ -119,32 +118,33 @@ x,y position should be empty
 make sure that insertion of this player will not be greater than M
 
 */
-bool Board::find(int playerID)
+bool Board::find1(int playerID)		//9:51 changed to find 1
 {
-	bool success = false; 
+	bool success = false;
 	if (this->gameBoard.find(playerID) == gameBoard.end())
 	{
-		cout << "Player not found in board." << endl; 
+		cout << "Player not found in board." << endl;
 		success = false;
 	}
 	else
 	{
 		cout << "Player found in board." << endl;
-		success = true; 
+		success = true;
 	}
 
 	return success;
 }
 
 /*
-Used to print the contents of the STL map 
+Used to print the contents of the STL map
 */
 void Board::printbyID()
 {
 	for (map<int, Player>::const_iterator it = gameBoard.begin();
 		it != gameBoard.end(); ++it)
 	{
-		cout << "Player id: " << it->first << "\tposition: " << "("<< it->second.getxPos() << ", " << it->second.getyPos()<< ")" << endl;  
+		cout << "Player id: " << it->first << "\tposition: " << "(" << it->second.getxPos() << ", " << it->second.getyPos() << ")" << endl;
+
 	}
 }
 
@@ -154,9 +154,9 @@ bool Board::checkInsertion(int xPos, int yPos)
 
 	pairIT = this->trackPairs.find(xPos); // Iterates starting at given x Position
 
-	for(; pairIT != trackPairs.end(); pairIT++)
+	for (; pairIT != trackPairs.end(); pairIT++)
 	{
-		if((*pairIT).first == xPos && (*pairIT).second == yPos)
+		if ((*pairIT).first == xPos && (*pairIT).second == yPos)
 		{
 			found = true;
 		}
@@ -180,25 +180,25 @@ bool Board::removePair(int xPos, int yPos)
 
 	pairIT = this->trackPairs.find(xPos); // Iterates starting at given x Position
 
-	for(; pairIT != trackPairs.end(); pairIT++)
+	for (; pairIT != trackPairs.end(); pairIT++)
 	{
-		if((*pairIT).first == xPos && (*pairIT).second == yPos)
+		if ((*pairIT).first == xPos && (*pairIT).second == yPos)
 		{
 			this->trackPairs.erase(pairIT);
 			success = true;
 		}
 	}
 	return success;
-	
+
 }
 
-void Board::getPair(int playerID, int *xPos, int *yPos)
+void Board::getPair(int playerID, int* xPos, int* yPos)
 {
 
 	itr = this->gameBoard.find(playerID);
-	for(; itr != gameBoard.end(); itr++)
+	for (; itr != gameBoard.end(); itr++)
 	{
-		if((*itr).first == playerID)
+		if ((*itr).first == playerID)
 		{
 			*xPos = (*itr).second.getxPos();
 			*yPos = (*itr).second.getxPos();
@@ -206,13 +206,13 @@ void Board::getPair(int playerID, int *xPos, int *yPos)
 	}
 }
 
-map<int,Player>::iterator Board::findReturn(int playerID)			//instead of this we could have trees for x and y positions as well to improve timing
+map<int, Player>::iterator Board::findReturn(int playerID)			//instead of this we could have trees for x and y positions as well to improve timing
 {
 	bool found = false;
 
 	this->itr = gameBoard.begin();
 
-	map<int, Player>::iterator toreturn; 
+	map<int, Player>::iterator toreturn;
 
 	for (; itr != gameBoard.end(); itr++)
 	{
@@ -229,30 +229,13 @@ map<int,Player>::iterator Board::findReturn(int playerID)			//instead of this we
 bool Board::moveTo(int playerID, int newxPos, int newyPos)
 {
 
-	map<int, Player>::iterator playertomove; 
-
+	map<int, Player>::iterator playertomove;
+	int key = 0; 
 	playertomove = this->gameBoard.find(playerID);
-	
-	if (checkInsertion(newxPos, newyPos) == true) //if true there is already a player at this position which needs to be removed
-	{
-		for (itr = gameBoard.begin(); itr != gameBoard.end(); itr++)
-		{
-			if(gameBoard.at(playerID).getxPos() == newxPos && gameBoard.at(playerID).getyPos() == newyPos)
-			{
-				remove(playerID);
-
-			}
-		}
-		
-		//how do we access the player id from the y values 
-		//since we need to remove then player at the occipuided position 
-		//want to return the iterator from first to access this key 
-		//find player and remove them
-
-	}
+	bool win = false;
 
 	//need to check if x is the same 
-	int xoffset = 0, yoffset = 0; 
+	int xoffset = 0, yoffset = 0;
 	bool tomove = false;
 	xoffset = abs(playertomove->second.getxPos() - newxPos);
 	yoffset = abs(playertomove->second.getyPos() - newyPos);
@@ -261,29 +244,61 @@ bool Board::moveTo(int playerID, int newxPos, int newyPos)
 		cout << "wanted positions are out of range" << endl;
 		tomove = false;
 	}
-	else if ((playertomove->second.getxPos() == newxPos) && (playertomove->second.getyPos() != newyPos))		//moving up or down a column
+	if ((playertomove->second.getxPos() == newxPos) && (playertomove->second.getyPos() != newyPos))		//moving up or down a column
 	{
 		//x position isnt changing so this is 
 		tomove = true;
 	}
-	else if ((playertomove->second.getxPos() != newxPos) && (playertomove->second.getyPos() == newyPos))			//moving left of right a row 
+	if ((playertomove->second.getxPos() != newxPos) && (playertomove->second.getyPos() == newyPos))			//moving left of right a row 
 	{
 		tomove = true;
 	}
-	else if (xoffset == yoffset)										//diagonal move 
+	if (xoffset == yoffset)										//diagonal move 
 	{
-		tomove = true;  
+		tomove = true;
 	}
-	else
+	/*else
 	{
 		tomove = false;
+	}*/
+
+	if (tomove == true)
+	{
+		if (this->find1(playerID) == false)
+		{
+			cout << "Cannot move player not found in list" << endl;
+			return false;
+
+		}
+		if (checkInsertion(newxPos, newyPos) == true) //if true there is already a player at this position which needs to be removed
+		{
+			for (itr = gameBoard.begin(); itr != gameBoard.end(); itr++)
+			{
+				if (itr->second.getxPos() == newxPos && itr->second.getyPos() == newyPos)
+				{
+					key = itr->first;
+
+					win = this->remove(key);
+					//this->removePair(itr->second.getxPos(), itr->second.getyPos());
+					//this->gameBoard.erase(key);
+					break;
+				}
+			}
+			//cout << "success" << endl;
+			//how do we access the player id from the y values 
+			//since we need to remove then player at the occipuided position 
+			//want to return the iterator from first to access this key 
+			//find player and remove them
+
+		}
+
 	}
 
-	
 	if (tomove == true)
 	{
 		playertomove->second.setxPos(newxPos);			//changes the players x position 
 		playertomove->second.setyPos(newyPos);			//changes the players y position 
+		this->insertPair(newxPos, newyPos);
 		cout << "Player successfully moved" << endl;
 	}
 	else
